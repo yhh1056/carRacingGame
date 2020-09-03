@@ -12,4 +12,8 @@ public class User {
         this.names = names;
         this.gameCount = gameCount;
     }
+
+    public String[] getNames() {
+        return names;
+    }
 }
