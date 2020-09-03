@@ -16,4 +16,8 @@ public class User {
     public String[] getNames() {
         return names;
     }
+
+    public int getGameCount() {
+        return gameCount;
+    }
 }

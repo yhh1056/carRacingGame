@@ -18,12 +18,11 @@ public class Game extends Rule {
     }
 
     public void start() {
-        readyCars();
+        readyCars(user.getNames());
         racingStart();
     }
 
-    private void readyCars() {
-        String[] names = user.getNames();
+    private void readyCars(String[] names) {
         createCar(names);
     }
 
@@ -35,11 +34,29 @@ public class Game extends Rule {
     }
 
     private void racingStart() {
+        for (int round = 0; round < user.getGameCount(); round++) {
+            moveCar();
+        }
+    }
+
+    private void moveCar() {
+        StringBuilder sb = new StringBuilder();
         for (Car car : cars) {
             if (isMoved(getRandomNumber())) {
                 car.move();
             }
+
+            sb.append(car.getName()).append(" : ").append(getProgress(car)).append("\n");
         }
+        System.out.println(sb.toString());
+    }
+
+    private char[] getProgress(Car car) {
+        char[] progress = new char[car.getPosition()];
+        for (int i = 0; i < car.getPosition(); i++) {
+            progress[i] = '-';
+        }
+        return progress;
     }
 
     private int getRandomNumber() {
