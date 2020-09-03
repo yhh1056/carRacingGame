@@ -1,4 +1,4 @@
-package view;
+package domain;
 
 /**
  * author {yhh1056}

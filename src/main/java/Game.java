@@ -1,6 +1,7 @@
+import domain.Car;
 import utils.Rule;
 import view.Input;
-import view.User;
+import domain.User;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -48,7 +49,7 @@ public class Game extends Rule {
                 car.move();
             }
 
-            sb.append(car.getName()).append(" : ").append(getProgress(car)).append("\n");
+            sb.append(car.getName()).append(super.colon).append(getProgress(car)).append(super.lineEnd);
         }
         System.out.println(sb.toString());
     }
@@ -56,26 +57,26 @@ public class Game extends Rule {
     private char[] getProgress(Car car) {
         char[] progress = new char[car.getPosition()];
         for (int i = 0; i < car.getPosition(); i++) {
-            progress[i] = '-';
+            progress[i] = super.progressChar;
         }
         return progress;
     }
 
     private int getRandomNumber() {
         Random random = new Random();
-        return random.nextInt(randomNumberBounds);
+        return random.nextInt(super.randomNumberBounds);
     }
 
     private void showWinner() {
         StringBuilder sb = new StringBuilder();
         Arrays.sort(cars);
 
-        int winPosition = cars[winnerIndex].getPosition();
-        sb.append(cars[winnerIndex].getName());
+        int winPosition = cars[super.winnerIndex].getPosition();
+        sb.append(cars[super.winnerIndex].getName());
 
         isMultipleWinner(sb, winPosition);
 
-        sb.append(" 우승했습니다.");
+        sb.append(super.winnerMessage);
 
         System.out.println(sb.toString());
 
@@ -84,7 +85,7 @@ public class Game extends Rule {
     private void isMultipleWinner(StringBuilder sb, int winPosition) {
         for (int i = 1; i < cars.length; i++) {
             if (cars[i].getPosition() == winPosition) {
-                sb.append(",").append(cars[i].getName());
+                sb.append(super.comma).append(cars[i].getName());
             }
         }
     }

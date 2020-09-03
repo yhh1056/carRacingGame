@@ -1,14 +1,16 @@
 package view;
 
+import domain.User;
+import utils.Rule;
+
 import java.util.Scanner;
 
 /**
  * author {yhh1056}
  * Create by {2020/09/03}
  */
-public class Input {
+public class Input extends Rule {
     private Scanner scanner;
-    private User user;
 
     public Input() {
         this.scanner = new Scanner(System.in);
@@ -24,7 +26,7 @@ public class Input {
     }
 
     private String[] toSplitComma(String inputCarNames) {
-        return inputCarNames.split(",");
+        return inputCarNames.split(super.comma);
     }
 
     private int inputGameCount() {

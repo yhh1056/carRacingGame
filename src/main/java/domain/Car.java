@@ -1,3 +1,5 @@
+package domain;
+
 /**
  * author {yhh1056}
  * Create by {2020/09/03}
