@@ -2,6 +2,7 @@ import utils.Rule;
 import view.Input;
 import view.User;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -20,6 +21,7 @@ public class Game extends Rule {
     public void start() {
         readyCars(user.getNames());
         racingStart();
+        showWinner();
     }
 
     private void readyCars(String[] names) {
@@ -62,5 +64,28 @@ public class Game extends Rule {
     private int getRandomNumber() {
         Random random = new Random();
         return random.nextInt(randomNumberBounds);
+    }
+
+    private void showWinner() {
+        StringBuilder sb = new StringBuilder();
+        Arrays.sort(cars);
+
+        int winPosition = cars[winnerIndex].getPosition();
+        sb.append(cars[winnerIndex].getName());
+
+        isMultipleWinner(sb, winPosition);
+
+        sb.append(" 우승했습니다.");
+
+        System.out.println(sb.toString());
+
+    }
+
+    private void isMultipleWinner(StringBuilder sb, int winPosition) {
+        for (int i = 1; i < cars.length; i++) {
+            if (cars[i].getPosition() == winPosition) {
+                sb.append(",").append(cars[i].getName());
+            }
+        }
     }
 }

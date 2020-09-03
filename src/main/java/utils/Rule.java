@@ -7,13 +7,10 @@ package utils;
 public class Rule implements RuleInterface{
     public final int randomNumberBounds = 10;
     public final int moveToNumber = 4;
+    public final int winnerIndex = 0;
+
     @Override
     public boolean isMoved(int number) {
         return number >= moveToNumber;
-    }
-
-    @Override
-    public String showWinner() {
-        return null;
     }
 }

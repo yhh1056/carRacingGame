@@ -6,6 +6,4 @@ package utils;
  */
 public interface RuleInterface {
     boolean isMoved(int number);
-
-    String showWinner();
 }
