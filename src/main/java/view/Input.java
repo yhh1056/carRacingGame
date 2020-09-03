@@ -16,7 +16,7 @@ public class Input {
 
     public User getCarList() {
         String[] carNames = toSplitComma(inputCarNames());
-        return new User(carNames);
+        return new User(carNames, inputGameCount());
     }
 
     private String inputCarNames() {
@@ -25,6 +25,10 @@ public class Input {
 
     private String[] toSplitComma(String inputCarNames) {
         return inputCarNames.split(",");
+    }
+
+    private int inputGameCount() {
+        return Integer.parseInt(scanner.nextLine());
     }
 
 }

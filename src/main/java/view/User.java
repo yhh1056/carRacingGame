@@ -5,9 +5,11 @@ package view;
  * Create by {2020/09/03}
  */
 public class User {
+    private int gameCount;
     private String[] names;
 
-    public User(String[] names) {
+    public User(String[] names, int gameCount) {
         this.names = names;
+        this.gameCount = gameCount;
     }
 }
