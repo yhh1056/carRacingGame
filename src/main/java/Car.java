@@ -12,4 +12,8 @@ public class Car {
     public String getName() {
         return name;
     }
+
+    public void move() {
+        System.out.println("한칸전진");
+    }
 }

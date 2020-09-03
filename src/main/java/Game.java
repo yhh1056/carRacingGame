@@ -1,11 +1,14 @@
+import utils.Rule;
 import view.Input;
 import view.User;
+
+import java.util.Random;
 
 /**
  * author {yhh1056}
  * Create by {2020/09/03}
  */
-public class Game {
+public class Game extends Rule {
     private Car[] cars;
     private User user;
 
@@ -16,6 +19,7 @@ public class Game {
 
     public void start() {
         readyCars();
+        racingStart();
     }
 
     private void readyCars() {
@@ -28,5 +32,18 @@ public class Game {
         for (int i = 0; i < carNames.length; i++) {
             cars[i] = new Car(carNames[i]);
         }
+    }
+
+    private void racingStart() {
+        for (Car car : cars) {
+            if (isMoved(getRandomNumber())) {
+                car.move();
+            }
+        }
+    }
+
+    private int getRandomNumber() {
+        Random random = new Random();
+        return random.nextInt(randomNumberBounds);
     }
 }
