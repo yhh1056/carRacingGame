@@ -14,7 +14,7 @@ public class Input {
         this.scanner = new Scanner(System.in);
     }
 
-    public User getCarList() {
+    public User getUserInputData() {
         String[] carNames = toSplitComma(inputCarNames());
         return new User(carNames, inputGameCount());
     }
