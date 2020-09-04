@@ -13,6 +13,9 @@ import java.util.Scanner;
 public class Input extends Rule {
     private Scanner scanner;
     private Validator validator;
+    private final String inputNameMessage = "경주할 자동차의 이름을 입력해주세요" +
+            " (이름은(,)쉼표 기준으로 구분 + 5글자 이내)";
+    private final String inputCountMessage = "시도할 횟수는 몇회인가요?";
 
     public Input() {
         this.scanner = new Scanner(System.in);
@@ -27,6 +30,7 @@ public class Input extends Rule {
     }
 
     private String inputCarNames() {
+        System.out.println(inputNameMessage);
         return scanner.nextLine();
     }
 
@@ -35,6 +39,7 @@ public class Input extends Rule {
     }
 
     private int inputGameCount() {
+        System.out.println(inputCountMessage);
         return Integer.parseInt(scanner.nextLine());
     }
 
