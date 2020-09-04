@@ -2,6 +2,7 @@ package view;
 
 import domain.User;
 import utils.Rule;
+import utils.Validator;
 
 import java.util.Scanner;
 
@@ -11,13 +12,17 @@ import java.util.Scanner;
  */
 public class Input extends Rule {
     private Scanner scanner;
+    private Validator validator;
 
     public Input() {
         this.scanner = new Scanner(System.in);
+        this.validator = new Validator();
     }
 
     public User getUserInputData() {
         String[] carNames = toSplitComma(inputCarNames());
+        validator.isValidName(carNames);
+
         return new User(carNames, inputGameCount());
     }
 
