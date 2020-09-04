@@ -29,8 +29,10 @@ public class Game extends Rule {
         createCar(names);
     }
 
+    //자동차를 생성하는 로직이 게임안에 있는게 맞을까?
     private void createCar(String[] carNames) {
         cars = new Car[carNames.length];
+
         for (int i = 0; i < carNames.length; i++) {
             cars[i] = new Car(carNames[i]);
         }
@@ -48,14 +50,22 @@ public class Game extends Rule {
             if (isMoved(getRandomNumber())) {
                 car.move();
             }
-
-            sb.append(car.getName()).append(super.colon).append(getProgress(car)).append(super.lineEnd);
+            printProgress(sb, car);
         }
+
         System.out.println(sb.toString());
+    }
+
+    private void printProgress(StringBuilder sb, Car car) {
+        sb.append(car.getName())
+                .append(super.colon)
+                .append(getProgress(car))
+                .append(super.lineEnd);
     }
 
     private char[] getProgress(Car car) {
         char[] progress = new char[car.getPosition()];
+
         for (int i = 0; i < car.getPosition(); i++) {
             progress[i] = super.progressChar;
         }
@@ -68,18 +78,17 @@ public class Game extends Rule {
     }
 
     private void showWinner() {
-        StringBuilder sb = new StringBuilder();
+        Car winner = cars[super.winnerIndex];
+        int winPosition = winner.getPosition();
+
         Arrays.sort(cars);
 
-        int winPosition = cars[super.winnerIndex].getPosition();
-        sb.append(cars[super.winnerIndex].getName());
-
+        StringBuilder sb = new StringBuilder();
+        sb.append(winner.getName());
         isMultipleWinner(sb, winPosition);
-
         sb.append(super.winnerMessage);
 
         System.out.println(sb.toString());
-
     }
 
     private void isMultipleWinner(StringBuilder sb, int winPosition) {
