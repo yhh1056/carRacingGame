@@ -1,17 +1,17 @@
 import domain.Car;
+import domain.Cars;
 import utils.Rule;
 import view.Input;
 import domain.User;
 
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 
 /**
  * author {yhh1056}
  * Create by {2020/09/03}
  */
 public class Game extends Rule {
-    private Car[] cars;
+    private List<Car> cars;
     private User user;
 
     public Game() {
@@ -29,47 +29,16 @@ public class Game extends Rule {
         createCar(names);
     }
 
-    //자동차를 생성하는 로직이 게임안에 있는게 맞을까?
     private void createCar(String[] carNames) {
-        cars = new Car[carNames.length];
-
-        for (int i = 0; i < carNames.length; i++) {
-            cars[i] = new Car(carNames[i]);
-        }
+        Cars cars = new Cars(carNames);
+        cars.registeredCar();
+        this.cars = cars.getCarList();
     }
 
     private void racingStart() {
-        for (int round = 0; round < user.getGameCount(); round++) {
+        while (++round < user.getGameCount()) {
             moveCar();
         }
-    }
-
-    private void moveCar() {
-        StringBuilder sb = new StringBuilder();
-        for (Car car : cars) {
-            if (isMoved(getRandomNumber())) {
-                car.move();
-            }
-            printProgress(sb, car);
-        }
-
-        System.out.println(sb.toString());
-    }
-
-    private void printProgress(StringBuilder sb, Car car) {
-        sb.append(car.getName())
-                .append(super.colon)
-                .append(getProgress(car))
-                .append(super.lineEnd);
-    }
-
-    private char[] getProgress(Car car) {
-        char[] progress = new char[car.getPosition()];
-
-        for (int i = 0; i < car.getPosition(); i++) {
-            progress[i] = super.progressChar;
-        }
-        return progress;
     }
 
     private int getRandomNumber() {
@@ -77,25 +46,62 @@ public class Game extends Rule {
         return random.nextInt(super.randomNumberBounds);
     }
 
-    private void showWinner() {
-        Car winner = cars[super.winnerIndex];
-        int winPosition = winner.getPosition();
-
-        Arrays.sort(cars);
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(winner.getName());
-        isMultipleWinner(sb, winPosition);
-        sb.append(super.winnerMessage);
-
-        System.out.println(sb.toString());
+    private void moveCar() {
+        for (Car car : cars) {
+            isMovedCar(car);
+            containsProgress(car);
+        }
+        printProgress();
     }
 
-    private void isMultipleWinner(StringBuilder sb, int winPosition) {
-        for (int i = 1; i < cars.length; i++) {
-            if (cars[i].getPosition() == winPosition) {
-                sb.append(super.comma).append(cars[i].getName());
+    private void isMovedCar(Car car) {
+        if (isMoved(getRandomNumber())) {
+            car.move();
+        }
+    }
+
+    private void containsProgress(Car car) {
+        sb.append(car.getName())
+                .append(colon)
+                .append(getProgress(car))
+                .append(lineEnd);
+    }
+
+    private char[] getProgress(Car car) {
+        char[] progress = new char[car.getPosition()];
+
+        for (int i = 0; i < car.getPosition(); i++) {
+            progress[i] = progressChar;
+        }
+        return progress;
+    }
+
+    private void printProgress() {
+        System.out.println(sb.toString());
+        sb.setLength(0);
+    }
+
+    private void showWinner() {
+        String result = getWinnerResult(getWinnerPoint());
+        System.out.println(result + winnerMessage);
+    }
+
+    public int getWinnerPoint() {
+        Collections.sort(cars);
+        return cars.get(0).getPosition();
+    }
+
+    private String getWinnerResult(int winnerPoint) {
+        return String.join(", ", getWinner(winnerPoint));
+    }
+
+    private List<String> getWinner(int winnerPoint) {
+        List<String> winners = new ArrayList<>();
+        for (Car car : cars) {
+            if (car.getPosition() == winnerPoint) {
+                winners.add(car.getName());
             }
         }
+        return winners;
     }
 }
