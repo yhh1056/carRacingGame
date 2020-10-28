@@ -82,21 +82,26 @@ public class Game extends Rule {
     }
 
     private void showWinner() {
-        int winnerPoint = getWinnerPoint();
+        String result = getWinnerResult(getWinnerPoint());
+        System.out.println(result + winnerMessage);
+    }
 
+    public int getWinnerPoint() {
+        Collections.sort(cars);
+        return cars.get(0).getPosition();
+    }
+
+    private String getWinnerResult(int winnerPoint) {
+        return String.join(", ", getWinner(winnerPoint));
+    }
+
+    private List<String> getWinner(int winnerPoint) {
         List<String> winners = new ArrayList<>();
         for (Car car : cars) {
             if (car.getPosition() == winnerPoint) {
                 winners.add(car.getName());
             }
         }
-
-        String result = String.join(", ", winners);
-        System.out.println(result);
-    }
-
-    public int getWinnerPoint() {
-        Collections.sort(cars);
-        return cars.get(0).getPosition();
+        return winners;
     }
 }
