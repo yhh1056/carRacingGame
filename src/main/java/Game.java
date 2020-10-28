@@ -39,7 +39,7 @@ public class Game extends Rule {
     }
 
     private void racingStart() {
-        for (int round = 0; round < user.getGameCount(); round++) {
+        while (++round < user.getGameCount()) {
             moveCar();
         }
     }
@@ -47,13 +47,17 @@ public class Game extends Rule {
     private void moveCar() {
         StringBuilder sb = new StringBuilder();
         for (Car car : cars) {
-            if (isMoved(getRandomNumber())) {
-                car.move();
-            }
+            isMovedCar(car);
             printProgress(sb, car);
         }
 
         System.out.println(sb.toString());
+    }
+
+    private void isMovedCar(Car car) {
+        if (isMoved(getRandomNumber())) {
+            car.move();
+        }
     }
 
     private void printProgress(StringBuilder sb, Car car) {

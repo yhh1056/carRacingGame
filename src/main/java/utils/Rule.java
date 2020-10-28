@@ -13,6 +13,7 @@ public class Rule implements RuleInterface{
     public final String winnerMessage = " 우승했습니다.";
     public final String colon = " : ";
     public final String lineEnd = "\n";
+    public int round = 0;
 
     @Override
     public boolean isMoved(int number) {
