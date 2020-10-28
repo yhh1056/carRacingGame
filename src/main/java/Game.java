@@ -3,7 +3,9 @@ import utils.Rule;
 import view.Input;
 import domain.User;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -11,7 +13,7 @@ import java.util.Random;
  * Create by {2020/09/03}
  */
 public class Game extends Rule {
-    private Car[] cars;
+    private List<Car> cars;
     private User user;
 
     public Game() {
@@ -29,12 +31,14 @@ public class Game extends Rule {
         createCar(names);
     }
 
-    //자동차를 생성하는 로직이 게임안에 있는게 맞을까?
+    /**
+     * TOdo : 일급컬렉션에서 생성하고 데이터 값 넘겨서 add처리하기
+     */
     private void createCar(String[] carNames) {
-        cars = new Car[carNames.length];
+        cars = new ArrayList<>();
 
-        for (int i = 0; i < carNames.length; i++) {
-            cars[i] = new Car(carNames[i]);
+        for (String carName : carNames) {
+            cars.add(new Car(carName));
         }
     }
 
@@ -78,24 +82,24 @@ public class Game extends Rule {
     }
 
     private void showWinner() {
-        Car winner = cars[super.winnerIndex];
-        int winPosition = winner.getPosition();
-
-        Arrays.sort(cars);
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(winner.getName());
-        isMultipleWinner(sb, winPosition);
-        sb.append(super.winnerMessage);
-
-        System.out.println(sb.toString());
+//        Car winner = cars[super.winnerIndex];
+//        int winPosition = winner.getPosition();
+//
+//        Arrays.sort(cars);
+//
+//        StringBuilder sb = new StringBuilder();
+//        sb.append(winner.getName());
+//        isMultipleWinner(sb, winPosition);
+//        sb.append(super.winnerMessage);
+//
+//        System.out.println(sb.toString());
     }
 
-    private void isMultipleWinner(StringBuilder sb, int winPosition) {
-        for (int i = 1; i < cars.length; i++) {
-            if (cars[i].getPosition() == winPosition) {
-                sb.append(super.comma).append(cars[i].getName());
-            }
-        }
-    }
+//    private void isMultipleWinner(StringBuilder sb, int winPosition) {
+//        for (int i = 1; i < cars.length; i++) {
+//            if (cars[i].getPosition() == winPosition) {
+//                sb.append(super.comma).append(cars[i].getName());
+//            }
+//        }
+//    }
 }
