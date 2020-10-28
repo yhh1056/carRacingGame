@@ -4,10 +4,7 @@ import utils.Rule;
 import view.Input;
 import domain.User;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * author {yhh1056}
@@ -44,6 +41,11 @@ public class Game extends Rule {
         }
     }
 
+    private int getRandomNumber() {
+        Random random = new Random();
+        return random.nextInt(super.randomNumberBounds);
+    }
+
     private void moveCar() {
         for (Car car : cars) {
             isMovedCar(car);
@@ -69,7 +71,7 @@ public class Game extends Rule {
         char[] progress = new char[car.getPosition()];
 
         for (int i = 0; i < car.getPosition(); i++) {
-            progress[i] = super.progressChar;
+            progress[i] = progressChar;
         }
         return progress;
     }
@@ -78,30 +80,22 @@ public class Game extends Rule {
         System.out.println(sb.toString());
     }
 
-    private int getRandomNumber() {
-        Random random = new Random();
-        return random.nextInt(super.randomNumberBounds);
-    }
-
     private void showWinner() {
-//        Car winner = cars[super.winnerIndex];
-//        int winPosition = winner.getPosition();
-//
-//        Arrays.sort(cars);
-//
-//        StringBuilder sb = new StringBuilder();
-//        sb.append(winner.getName());
-//        isMultipleWinner(sb, winPosition);
-//        sb.append(super.winnerMessage);
-//
-//        System.out.println(sb.toString());
+        int winnerPoint = getWinnerPoint();
+
+        List<String> winners = new ArrayList<>();
+        for (Car car : cars) {
+            if (car.getPosition() == winnerPoint) {
+                winners.add(car.getName());
+            }
+        }
+
+        String result = String.join(", ", winners);
+        System.out.println(result);
     }
 
-//    private void isMultipleWinner(StringBuilder sb, int winPosition) {
-//        for (int i = 1; i < cars.length; i++) {
-//            if (cars[i].getPosition() == winPosition) {
-//                sb.append(super.comma).append(cars[i].getName());
-//            }
-//        }
-//    }
+    public int getWinnerPoint() {
+        Collections.sort(cars);
+        return cars.get(0).getPosition();
+    }
 }
