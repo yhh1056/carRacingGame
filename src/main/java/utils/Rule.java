@@ -14,6 +14,7 @@ public class Rule implements RuleInterface{
     public final String colon = " : ";
     public final String lineEnd = "\n";
     public int round = 0;
+    public StringBuilder sb = new StringBuilder();
 
     @Override
     public boolean isMoved(int number) {

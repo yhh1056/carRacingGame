@@ -45,13 +45,11 @@ public class Game extends Rule {
     }
 
     private void moveCar() {
-        StringBuilder sb = new StringBuilder();
         for (Car car : cars) {
             isMovedCar(car);
-            printProgress(sb, car);
+            containsProgress(car);
         }
-
-        System.out.println(sb.toString());
+        printProgress();
     }
 
     private void isMovedCar(Car car) {
@@ -60,11 +58,11 @@ public class Game extends Rule {
         }
     }
 
-    private void printProgress(StringBuilder sb, Car car) {
+    private void containsProgress(Car car) {
         sb.append(car.getName())
-                .append(super.colon)
+                .append(colon)
                 .append(getProgress(car))
-                .append(super.lineEnd);
+                .append(lineEnd);
     }
 
     private char[] getProgress(Car car) {
@@ -74,6 +72,10 @@ public class Game extends Rule {
             progress[i] = super.progressChar;
         }
         return progress;
+    }
+
+    private void printProgress() {
+        System.out.println(sb.toString());
     }
 
     private int getRandomNumber() {
