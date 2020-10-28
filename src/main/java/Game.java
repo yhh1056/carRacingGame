@@ -78,6 +78,7 @@ public class Game extends Rule {
 
     private void printProgress() {
         System.out.println(sb.toString());
+        sb.setLength(0);
     }
 
     private void showWinner() {
