@@ -1,4 +1,5 @@
 import domain.Car;
+import domain.Cars;
 import utils.Rule;
 import view.Input;
 import domain.User;
@@ -31,15 +32,10 @@ public class Game extends Rule {
         createCar(names);
     }
 
-    /**
-     * TOdo : 일급컬렉션에서 생성하고 데이터 값 넘겨서 add처리하기
-     */
     private void createCar(String[] carNames) {
-        cars = new ArrayList<>();
-
-        for (String carName : carNames) {
-            cars.add(new Car(carName));
-        }
+        Cars cars = new Cars(carNames);
+        cars.registeredCar();
+        this.cars = cars.getCarList();
     }
 
     private void racingStart() {
